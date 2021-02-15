@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "770356655599",
+    "project_id": "saral-notes-6bfdb",
+    "storage_bucket": "saral-notes-6bfdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770356655599:android:14edbe7ac2bf49fa40721a",
+        "android_client_info": {
+          "package_name": "com.example.saral_notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770356655599-2rp3sgh0tsohce20tcte74iueeo13okj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOKneD8yXRmV0LBAvCKTmw4x-CsYnmniE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770356655599-2rp3sgh0tsohce20tcte74iueeo13okj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

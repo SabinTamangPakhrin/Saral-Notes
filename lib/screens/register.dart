@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saral_notes/screens/login.dart';
+import 'package:saral_notes/utils/validator.dart';
 
 class RegisterScreen extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  final validator = Validator();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,104 +25,106 @@ class RegisterScreen extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'Full Name',
-                          filled: true,
-                          fillColor: Color(0xffEFEFEF),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          prefixIcon: Icon(Icons.person),
-                          contentPadding: EdgeInsets.all(8),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          filled: true,
-                          fillColor: Color(0xffEFEFEF),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          prefixIcon: Icon(Icons.mail),
-                          contentPadding: EdgeInsets.all(8),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          filled: true,
-                          fillColor: Color(0xffEFEFEF),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          prefixIcon: Icon(Icons.lock),
-                          contentPadding: EdgeInsets.all(8),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Confirm Password',
-                          filled: true,
-                          fillColor: Color(0xffEFEFEF),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          prefixIcon: Icon(Icons.verified_user),
-                          contentPadding: EdgeInsets.all(8),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Container(
-                        height: 45,
-                        width: 150,
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40)),
-                          color: Color(0xffDC143C),
-                          textColor: Colors.white,
-                          child: Text('Sign Up'),
-                          onPressed: () {},
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Already have an account?'),
-                          SizedBox(width: 5),
-                          InkWell(
-                            child: Text(
-                              'Sign In',
-                              style: TextStyle(
-                                color: Color(0xff003893),
-                              ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'Full Name',
+                            filled: true,
+                            fillColor: Color(0xffEFEFEF),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(40),
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
+                            prefixIcon: Icon(Icons.person),
+                            contentPadding: EdgeInsets.all(8),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            hintText: 'Email',
+                            filled: true,
+                            fillColor: Color(0xffEFEFEF),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            prefixIcon: Icon(Icons.mail),
+                            contentPadding: EdgeInsets.all(8),
+                          ),
+                          validator: validator.emailValidator,
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                            filled: true,
+                            fillColor: Color(0xffEFEFEF),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            prefixIcon: Icon(Icons.lock),
+                            contentPadding: EdgeInsets.all(8),
+                          ),
+                          validator: validator.passwordValidator,
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: 'Confirm Password',
+                            filled: true,
+                            fillColor: Color(0xffEFEFEF),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            prefixIcon: Icon(Icons.verified_user),
+                            contentPadding: EdgeInsets.all(8),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          height: 45,
+                          width: 150,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40)),
+                            color: Color(0xffDC143C),
+                            textColor: Colors.white,
+                            child: Text('Sign Up'),
+                            onPressed: () {
+                              _formKey.currentState.validate();
                             },
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Already have an account?'),
+                            SizedBox(width: 5),
+                            InkWell(
+                              child: Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: Color(0xff003893),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )

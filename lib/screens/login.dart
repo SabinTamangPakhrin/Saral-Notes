@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saral_notes/screens/home.dart';
 import 'package:saral_notes/screens/register.dart';
 import 'package:saral_notes/screens/widget/bottomNav.dart';
 import 'package:saral_notes/utils/validator.dart';
