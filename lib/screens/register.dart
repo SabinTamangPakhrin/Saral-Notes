@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:saral_notes/screens/login.dart';
+import 'package:saral_notes/utils/authentication.dart';
 import 'package:saral_notes/utils/validator.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _formKey = GlobalKey<FormState>();
+
   final validator = Validator();
+
+  final _auth = Authentication();
+
+  TextEditingController _nameC = TextEditingController();
+
+  TextEditingController _emailC = TextEditingController();
+
+  TextEditingController _passC = TextEditingController();
+
+  TextEditingController _cpassC = TextEditingController();
+
+  bool _loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Color(0xffEFEFEF),
       body: SingleChildScrollView(
         child: Container(
@@ -30,6 +54,7 @@ class RegisterScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: _nameC,
                           decoration: InputDecoration(
                             hintText: 'Full Name',
                             filled: true,
@@ -41,9 +66,11 @@ class RegisterScreen extends StatelessWidget {
                             prefixIcon: Icon(Icons.person),
                             contentPadding: EdgeInsets.all(8),
                           ),
+                          validator: validator.fNameValidator,
                         ),
                         SizedBox(height: 20),
                         TextFormField(
+                          controller: _emailC,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             hintText: 'Email',
@@ -60,6 +87,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         TextFormField(
+                          controller: _passC,
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: 'Password',
@@ -76,6 +104,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         TextFormField(
+                          controller: _cpassC,
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: 'Confirm Password',
@@ -88,6 +117,12 @@ class RegisterScreen extends StatelessWidget {
                             prefixIcon: Icon(Icons.verified_user),
                             contentPadding: EdgeInsets.all(8),
                           ),
+                          validator: (value) {
+                            if (value != _passC.text) {
+                              return 'Password doesnot matched.';
+                            }
+                            return null;
+                          },
                         ),
                         SizedBox(height: 20),
                         Container(
@@ -98,9 +133,55 @@ class RegisterScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(40)),
                             color: Color(0xffDC143C),
                             textColor: Colors.white,
-                            child: Text('Sign Up'),
-                            onPressed: () {
-                              _formKey.currentState.validate();
+                            child: _loading
+                                ? Text('Loading....')
+                                : Text('Sign Up'),
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                setState(() {
+                                  _loading = true;
+                                });
+                                bool success = await _auth.signUp(
+                                    _emailC.text, _cpassC.text);
+                                if (success) {
+                                  setState(() {
+                                    _loading = false;
+                                  });
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Successful'),
+                                        content:
+                                            Text('Successfully Registered'),
+                                        actions: [
+                                          MaterialButton(
+                                            child: Text('Go to Login'),
+                                            onPressed: () {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LoginScreen(),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  setState(() {
+                                    _loading = false;
+                                  });
+                                  final snackbar = SnackBar(
+                                    content: Text('Registration Error'),
+                                  );
+                                  _scaffoldKey.currentState
+                                      .showSnackBar(snackbar);
+                                }
+                              }
                             },
                           ),
                         ),

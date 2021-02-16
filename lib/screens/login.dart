@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:saral_notes/screens/register.dart';
 import 'package:saral_notes/screens/widget/bottomNav.dart';
+import 'package:saral_notes/utils/authentication.dart';
 import 'package:saral_notes/utils/validator.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final formValidator = Validator();
+
+  final auth = Authentication();
+
+  TextEditingController _emailC = TextEditingController();
+
+  TextEditingController _passC = TextEditingController();
+
+  bool _loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +51,7 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: _emailC,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             hintText: 'Email',
@@ -50,6 +68,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         TextFormField(
+                          controller: _passC,
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: 'Password',
@@ -78,15 +97,31 @@ class LoginScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(40)),
                             color: Color(0xffDC143C),
                             textColor: Colors.white,
-                            child: Text('Sign In'),
-                            onPressed: () {
+                            child:
+                                _loading ? Text('Loading...') : Text('Sign In'),
+                            onPressed: () async {
                               if (_formKey.currentState.validate()) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (xontext) => BottomNav(),
-                                  ),
-                                );
+                                setState(() {
+                                  _loading = true;
+                                });
+                                bool success = await auth.signIn(
+                                    _emailC.text, _passC.text);
+                                if (success) {
+                                  setState(() {
+                                    _loading = false;
+                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (xontext) => BottomNav(),
+                                    ),
+                                  );
+                                } else {
+                                  setState(() {
+                                    _loading = false;
+                                  });
+                                  print('Login Error');
+                                }
                               }
                             },
                           ),

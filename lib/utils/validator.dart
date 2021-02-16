@@ -19,5 +19,11 @@ class Validator {
     }
     return null;
   }
-  
+
+  String fNameValidator(value) {
+    if (value.isEmpty) {
+      return 'Please enter your name';
+    }
+    return null;
+  }
 }
