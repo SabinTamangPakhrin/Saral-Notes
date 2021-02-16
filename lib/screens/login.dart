@@ -110,10 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   setState(() {
                                     _loading = false;
                                   });
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (xontext) => BottomNav(),
+                                      builder: (context) => BottomNav(),
                                     ),
                                   );
                                 } else {

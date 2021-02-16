@@ -24,4 +24,15 @@ class Authentication {
       return false;
     }
   }
+
+  Future<bool> logout() async {
+    try {
+      await auth.signOut();
+      return true;
+    } on FirebaseAuthException catch (e) {
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+      return false;
+    }
+  }
 }

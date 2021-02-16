@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saral_notes/screens/growing.dart';
 import 'package:saral_notes/screens/home.dart';
 import 'package:saral_notes/screens/profile.dart';
-import 'package:saral_notes/screens/subject.dart';
+import 'package:saral_notes/screens/notes.dart';
 
 class BottomNav extends StatefulWidget {
   @override
@@ -10,12 +10,7 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  List pages = [
-    HomeScreen(),
-    SubjectScreen(),
-    GrowingScreen(),
-    ProfileScreen()
-  ];
+  List pages = [HomeScreen(), NotesScreen(), GrowingScreen(), ProfileScreen()];
 
   int currentIndex = 0;
 
