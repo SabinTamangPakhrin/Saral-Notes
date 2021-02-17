@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saral_notes/screens/register.dart';
-import 'package:saral_notes/screens/widget/bottomNav.dart';
+import 'package:saral_notes/screens/widgets/bottomNav.dart';
 import 'package:saral_notes/utils/authentication.dart';
 import 'package:saral_notes/utils/validator.dart';
 
@@ -10,10 +10,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //for validating all the form field at once
   final _formKey = GlobalKey<FormState>();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  //object for validating each form field 
   final formValidator = Validator();
 
   final auth = Authentication();
@@ -22,7 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController _passC = TextEditingController();
 
+  //to show loading status while performing login
   bool _loading = false;
+
+  //for password visibility
+  bool hidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _passC,
-                          obscureText: true,
+                          obscureText: hidden,
                           decoration: InputDecoration(
                             hintText: 'Password',
                             fillColor: Color(0xffEFEFEF),
@@ -80,6 +86,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             prefixIcon: Icon(Icons.lock),
                             contentPadding: EdgeInsets.all(8),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                hidden
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  hidden = !hidden;
+                                });
+                              },
+                            ),
                           ),
                           validator: formValidator.passwordValidator,
                         ),
@@ -99,31 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             textColor: Colors.white,
                             child:
                                 _loading ? Text('Loading...') : Text('Sign In'),
-                            onPressed: () async {
-                              if (_formKey.currentState.validate()) {
-                                setState(() {
-                                  _loading = true;
-                                });
-                                bool success = await auth.signIn(
-                                    _emailC.text, _passC.text);
-                                if (success) {
-                                  setState(() {
-                                    _loading = false;
-                                  });
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BottomNav(),
-                                    ),
-                                  );
-                                } else {
-                                  setState(() {
-                                    _loading = false;
-                                  });
-                                  print('Login Error');
-                                }
-                              }
-                            },
+                            onPressed: _loading ? null : signIn,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -202,5 +197,30 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void signIn() async {
+    if (_formKey.currentState.validate()) {
+      setState(() {
+        _loading = true;
+      });
+      bool success = await auth.signIn(_emailC.text, _passC.text);
+      if (success) {
+        setState(() {
+          _loading = false;
+        });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottomNav(),
+          ),
+        );
+      } else {
+        setState(() {
+          _loading = false;
+        });
+        print('Login Error');
+      }
+    }
   }
 }

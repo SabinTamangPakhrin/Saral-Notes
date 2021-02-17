@@ -46,7 +46,7 @@ class _BottomNavState extends State<BottomNav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Subjects',
+            label: 'Notes',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.backup),

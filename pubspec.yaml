@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   firebase_core: ^0.7.0
   firebase_auth: ^0.20.0+1
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -39,7 +40,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
-flutter:
+flutter:  
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -51,6 +52,10 @@ flutter:
     - assets/images/snLogo.png
     - assets/icons/fbIcon.png
     - assets/icons/googleIcon.png
+    - assets/images/read.jpg
+    - assets/images/write.jpg
+    - assets/images/stair.jpg
+    - assets/images/english.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

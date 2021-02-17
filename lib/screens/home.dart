@@ -10,6 +10,13 @@ class _HomeScreenState extends State<HomeScreen>
   TabController _tabController;
   int currentIndex = 0;
   bool dummyLoading = false;
+
+  List<String> recommendedC = [
+    'assets/images/read.jpg',
+    'assets/images/write.jpg',
+    'assets/images/english.jpg',
+    'assets/images/stair.jpg',
+  ];
   @override
   void initState() {
     super.initState();
@@ -292,11 +299,12 @@ class _HomeScreenState extends State<HomeScreen>
                   SizedBox(height: 16),
                   Container(
                     height: 160,
-                    child: ListView(
+                    child: ListView.builder(
+                      itemCount: recommendedC.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      children: [
-                        Container(
+                      itemBuilder: (context, index) {
+                        return Container(
                           width: 140,
                           margin: EdgeInsets.only(right: 16, bottom: 8),
                           decoration: BoxDecoration(
@@ -317,13 +325,9 @@ class _HomeScreenState extends State<HomeScreen>
                                   decoration: BoxDecoration(
                                     color: Colors.blueGrey,
                                     borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Place your Image",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(recommendedC[index]),
                                     ),
                                   ),
                                 ),
@@ -383,272 +387,272 @@ class _HomeScreenState extends State<HomeScreen>
                               )
                             ],
                           ),
-                        ),
-                        Container(
-                          width: 140,
-                          margin: EdgeInsets.only(right: 16, bottom: 8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 3,
-                                  spreadRadius: 2,
-                                )
-                              ]),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Place your Image",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 4,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "English Reading",
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "8.0",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.grey, size: 12),
-                                          Spacer(),
-                                          Container(
-                                            height: 24,
-                                            width: 24,
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Center(
-                                              child: Icon(Icons.favorite,
-                                                  size: 13,
-                                                  color: Colors.white),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 140,
-                          margin: EdgeInsets.only(right: 16, bottom: 8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 3,
-                                  spreadRadius: 2,
-                                )
-                              ]),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Place your Image",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 4,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Illustration Book",
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "7.5",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.grey, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.grey, size: 12),
-                                          Spacer(),
-                                          Container(
-                                            height: 24,
-                                            width: 24,
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Center(
-                                              child: Icon(Icons.favorite,
-                                                  size: 13,
-                                                  color: Colors.white),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 140,
-                          margin: EdgeInsets.only(right: 16, bottom: 8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 3,
-                                  spreadRadius: 2,
-                                )
-                              ]),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Place your Image",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 4,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Morning Textbook",
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "8.6",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 12),
-                                          Icon(Icons.star,
-                                              color: Colors.grey, size: 12),
-                                          Spacer(),
-                                          Container(
-                                            height: 24,
-                                            width: 24,
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Center(
-                                              child: Icon(Icons.favorite,
-                                                  size: 13,
-                                                  color: Colors.white),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                        );
+                      },
+                      // Container(
+                      //   width: 140,
+                      //   margin: EdgeInsets.only(right: 16, bottom: 8),
+                      //   decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       borderRadius: BorderRadius.circular(4),
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: Colors.black.withOpacity(0.1),
+                      //           blurRadius: 3,
+                      //           spreadRadius: 2,
+                      //         )
+                      //       ]),
+                      //   child: Column(
+                      //     children: [
+                      //       Expanded(
+                      //         flex: 3,
+                      //         child: Container(
+                      //           decoration: BoxDecoration(
+                      //             color: Colors.blueGrey,
+                      //             borderRadius: BorderRadius.circular(4),
+                      //           ),
+                      //           child: Center(
+                      //             child: Text(
+                      //               "Place your Image",
+                      //               style: TextStyle(
+                      //                 color: Colors.white,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         flex: 4,
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           child: Column(
+                      //             mainAxisAlignment:
+                      //                 MainAxisAlignment.spaceBetween,
+                      //             crossAxisAlignment:
+                      //                 CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 "English Reading",
+                      //                 style: TextStyle(color: Colors.grey),
+                      //               ),
+                      //               Text(
+                      //                 "8.0",
+                      //                 style: TextStyle(
+                      //                     color: Colors.black,
+                      //                     fontSize: 18,
+                      //                     fontWeight: FontWeight.bold),
+                      //               ),
+                      //               Row(
+                      //                 children: [
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.grey, size: 12),
+                      //                   Spacer(),
+                      //                   Container(
+                      //                     height: 24,
+                      //                     width: 24,
+                      //                     decoration: BoxDecoration(
+                      //                       color: Colors.red,
+                      //                       shape: BoxShape.circle,
+                      //                     ),
+                      //                     child: Center(
+                      //                       child: Icon(Icons.favorite,
+                      //                           size: 13,
+                      //                           color: Colors.white),
+                      //                     ),
+                      //                   )
+                      //                 ],
+                      //               )
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      // Container(
+                      //   width: 140,
+                      //   margin: EdgeInsets.only(right: 16, bottom: 8),
+                      //   decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       borderRadius: BorderRadius.circular(4),
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: Colors.black.withOpacity(0.1),
+                      //           blurRadius: 3,
+                      //           spreadRadius: 2,
+                      //         )
+                      //       ]),
+                      //   child: Column(
+                      //     children: [
+                      //       Expanded(
+                      //         flex: 3,
+                      //         child: Container(
+                      //           decoration: BoxDecoration(
+                      //             color: Colors.blueGrey,
+                      //             borderRadius: BorderRadius.circular(4),
+                      //           ),
+                      //           child: Center(
+                      //             child: Text(
+                      //               "Place your Image",
+                      //               style: TextStyle(
+                      //                 color: Colors.white,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         flex: 4,
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           child: Column(
+                      //             mainAxisAlignment:
+                      //                 MainAxisAlignment.spaceBetween,
+                      //             crossAxisAlignment:
+                      //                 CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 "Illustration Book",
+                      //                 style: TextStyle(color: Colors.grey),
+                      //               ),
+                      //               Text(
+                      //                 "7.5",
+                      //                 style: TextStyle(
+                      //                     color: Colors.black,
+                      //                     fontSize: 18,
+                      //                     fontWeight: FontWeight.bold),
+                      //               ),
+                      //               Row(
+                      //                 children: [
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.grey, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.grey, size: 12),
+                      //                   Spacer(),
+                      //                   Container(
+                      //                     height: 24,
+                      //                     width: 24,
+                      //                     decoration: BoxDecoration(
+                      //                       color: Colors.red,
+                      //                       shape: BoxShape.circle,
+                      //                     ),
+                      //                     child: Center(
+                      //                       child: Icon(Icons.favorite,
+                      //                           size: 13,
+                      //                           color: Colors.white),
+                      //                     ),
+                      //                   )
+                      //                 ],
+                      //               )
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      // Container(
+                      //   width: 140,
+                      //   margin: EdgeInsets.only(right: 16, bottom: 8),
+                      //   decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       borderRadius: BorderRadius.circular(4),
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: Colors.black.withOpacity(0.1),
+                      //           blurRadius: 3,
+                      //           spreadRadius: 2,
+                      //         )
+                      //       ]),
+                      //   child: Column(
+                      //     children: [
+                      //       Expanded(
+                      //         flex: 3,
+                      //         child: Container(
+                      //           decoration: BoxDecoration(
+                      //             color: Colors.blueGrey,
+                      //             borderRadius: BorderRadius.circular(4),
+                      //           ),
+                      //           child: Center(
+                      //             child: Text(
+                      //               "Place your Image",
+                      //               style: TextStyle(
+                      //                 color: Colors.white,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         flex: 4,
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           child: Column(
+                      //             mainAxisAlignment:
+                      //                 MainAxisAlignment.spaceBetween,
+                      //             crossAxisAlignment:
+                      //                 CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 "Morning Textbook",
+                      //                 style: TextStyle(color: Colors.grey),
+                      //               ),
+                      //               Text(
+                      //                 "8.6",
+                      //                 style: TextStyle(
+                      //                     color: Colors.black,
+                      //                     fontSize: 18,
+                      //                     fontWeight: FontWeight.bold),
+                      //               ),
+                      //               Row(
+                      //                 children: [
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.yellow, size: 12),
+                      //                   Icon(Icons.star,
+                      //                       color: Colors.grey, size: 12),
+                      //                   Spacer(),
+                      //                   Container(
+                      //                     height: 24,
+                      //                     width: 24,
+                      //                     decoration: BoxDecoration(
+                      //                       color: Colors.red,
+                      //                       shape: BoxShape.circle,
+                      //                     ),
+                      //                     child: Center(
+                      //                       child: Icon(Icons.favorite,
+                      //                           size: 13,
+                      //                           color: Colors.white),
+                      //                     ),
+                      //                   )
+                      //                 ],
+                      //               )
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                     ),
                   ),
                 ],

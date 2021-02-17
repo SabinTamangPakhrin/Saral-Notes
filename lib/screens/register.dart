@@ -136,53 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: _loading
                                 ? Text('Loading....')
                                 : Text('Sign Up'),
-                            onPressed: () async {
-                              if (_formKey.currentState.validate()) {
-                                setState(() {
-                                  _loading = true;
-                                });
-                                bool success = await _auth.signUp(
-                                    _emailC.text, _cpassC.text);
-                                if (success) {
-                                  setState(() {
-                                    _loading = false;
-                                  });
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text('Successful'),
-                                        content:
-                                            Text('Successfully Registered'),
-                                        actions: [
-                                          MaterialButton(
-                                            child: Text('Go to Login'),
-                                            onPressed: () {
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginScreen(),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  setState(() {
-                                    _loading = false;
-                                  });
-                                  final snackbar = SnackBar(
-                                    content: Text('Registration Error'),
-                                  );
-                                  _scaffoldKey.currentState
-                                      .showSnackBar(snackbar);
-                                }
-                              }
-                            },
+                            onPressed: _loading ? null : register,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -214,5 +168,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  void register() async {
+    if (_formKey.currentState.validate()) {
+      setState(() {
+        _loading = true;
+      });
+      bool success = await _auth.signUp(_emailC.text, _cpassC.text);
+      if (success) {
+        setState(() {
+          _loading = false;
+        });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Successful'),
+              content: Text('Successfully Registered'),
+              actions: [
+                MaterialButton(
+                  child: Text('Go to Login'),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        setState(() {
+          _loading = false;
+        });
+        final snackbar = SnackBar(
+          content: Text('Registration Error'),
+        );
+        _scaffoldKey.currentState.showSnackBar(snackbar);
+      }
+    }
   }
 }
