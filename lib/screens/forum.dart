@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class GrowingScreen extends StatelessWidget {
+class ForumScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Growing Screen'),
+        child: Text('Forum Screen'),
       ),
     );
   }

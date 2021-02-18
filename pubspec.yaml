@@ -52,10 +52,15 @@ flutter:
     - assets/images/snLogo.png
     - assets/icons/fbIcon.png
     - assets/icons/googleIcon.png
+    - assets/icons/home.png  
+    - assets/icons/notes.png  
+    - assets/icons/profile.png
+    - assets/icons/forum.png
     - assets/images/read.jpg
     - assets/images/write.jpg
     - assets/images/stair.jpg
     - assets/images/english.jpg
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
