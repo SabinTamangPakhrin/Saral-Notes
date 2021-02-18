@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:saral_notes/provider/user_provider.dart';
 import 'package:saral_notes/screens/register.dart';
 import 'package:saral_notes/screens/widgets/bottomNav.dart';
 import 'package:saral_notes/utils/authentication.dart';
@@ -15,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  //object for validating each form field 
+  //object for validating each form field
   final formValidator = Validator();
 
   final auth = Authentication();
@@ -32,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<UserProvider>(context).getUserName());
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xffEFEFEF),

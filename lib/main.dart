@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:saral_notes/provider/user_provider.dart';
 import 'package:saral_notes/screens/login.dart';
 
 void main() {
@@ -11,7 +13,10 @@ class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers:[
+      ChangeNotifierProvider.value(value: UserProvider()),
+    ],child:MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -34,6 +39,6 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
-    );
+    ));
   }
 }
