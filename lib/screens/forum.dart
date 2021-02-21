@@ -27,7 +27,10 @@ class ForumScreen extends StatelessWidget {
                           Container(
                             child: Row(
                               children: [
-                                CircleAvatar(),
+                                CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(forumList[index].creatorImg),
+                                ),
                                 SizedBox(width: 5),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,10 +79,14 @@ class ForumScreen extends StatelessWidget {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: composeBtn(),
+    );
+  }
+
+  Widget composeBtn() {
+    return FloatingActionButton(
         child: Icon(Icons.message),
         onPressed: () {},
-      ),
-    );
+      );
   }
 }

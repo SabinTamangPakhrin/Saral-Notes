@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:saral_notes/screens/widgets/company_logo.dart';
+import 'package:saral_notes/screens/widgets/custom_button.dart';
 import 'package:saral_notes/screens/login.dart';
 import 'package:saral_notes/utils/authentication.dart';
 import 'package:saral_notes/utils/validator.dart';
@@ -32,137 +34,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xffEFEFEF),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+      body: body(),
+    );
+  }
+
+  Widget _companyLogo() {
+    return CompanyLogo(height: 140);
+  }
+
+  Widget body() {
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(20),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _companyLogo(),
+            SizedBox(height: 20),
+            _registerForm(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _registerForm() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        child: Form(
+          key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/snLogo.png',
-                height: 150,
-              ),
+              _nameTextField(),
               SizedBox(height: 20),
-              Card(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: _nameC,
-                          decoration: InputDecoration(
-                            hintText: 'Full Name',
-                            filled: true,
-                            fillColor: Color(0xffEFEFEF),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            prefixIcon: Icon(Icons.person),
-                            contentPadding: EdgeInsets.all(8),
-                          ),
-                          validator: validator.fNameValidator,
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          controller: _emailC,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: 'Email',
-                            filled: true,
-                            fillColor: Color(0xffEFEFEF),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            prefixIcon: Icon(Icons.mail),
-                            contentPadding: EdgeInsets.all(8),
-                          ),
-                          validator: validator.emailValidator,
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          controller: _passC,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            filled: true,
-                            fillColor: Color(0xffEFEFEF),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            prefixIcon: Icon(Icons.lock),
-                            contentPadding: EdgeInsets.all(8),
-                          ),
-                          validator: validator.passwordValidator,
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          controller: _cpassC,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'Confirm Password',
-                            filled: true,
-                            fillColor: Color(0xffEFEFEF),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            prefixIcon: Icon(Icons.verified_user),
-                            contentPadding: EdgeInsets.all(8),
-                          ),
-                          validator: (value) {
-                            if (value != _passC.text) {
-                              return 'Password doesnot matched.';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          height: 45,
-                          width: 150,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40)),
-                            color: Color(0xffDC143C),
-                            textColor: Colors.white,
-                            child: _loading
-                                ? Text('Loading....')
-                                : Text('Sign Up'),
-                            onPressed: _loading ? null : register,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Already have an account?'),
-                            SizedBox(width: 5),
-                            InkWell(
-                              child: Text(
-                                'Sign In',
-                                style: TextStyle(
-                                  color: Color(0xff003893),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              _emailTextField(),
+              SizedBox(height: 20),
+              _passwordTextField(),
+              SizedBox(height: 20),
+              _confirmPasswordTextField(),
+              SizedBox(height: 20),
+              _signUpBtn(),
+              SizedBox(height: 20),
+              _signInText(),
             ],
           ),
         ),
@@ -170,7 +86,116 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void register() async {
+  Widget _nameTextField() {
+    return TextFormField(
+      controller: _nameC,
+      decoration: InputDecoration(
+        hintText: 'Full Name',
+        filled: true,
+        fillColor: Color(0xffEFEFEF),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        prefixIcon: Icon(Icons.person),
+        contentPadding: EdgeInsets.all(8),
+      ),
+      validator: validator.fNameValidator,
+    );
+  }
+
+  Widget _emailTextField() {
+    return TextFormField(
+      controller: _emailC,
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        hintText: 'Email',
+        filled: true,
+        fillColor: Color(0xffEFEFEF),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        prefixIcon: Icon(Icons.mail),
+        contentPadding: EdgeInsets.all(8),
+      ),
+      validator: validator.emailValidator,
+    );
+  }
+
+  Widget _passwordTextField() {
+    return TextFormField(
+      controller: _passC,
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        filled: true,
+        fillColor: Color(0xffEFEFEF),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        prefixIcon: Icon(Icons.lock),
+        contentPadding: EdgeInsets.all(8),
+      ),
+      validator: validator.passwordValidator,
+    );
+  }
+
+  Widget _confirmPasswordTextField() {
+    return TextFormField(
+      controller: _cpassC,
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: 'Confirm Password',
+        filled: true,
+        fillColor: Color(0xffEFEFEF),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        prefixIcon: Icon(Icons.verified_user),
+        contentPadding: EdgeInsets.all(8),
+      ),
+      validator: (value) {
+        if (value != _passC.text) {
+          return 'Password doesnot matched.';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _signUpBtn() {
+    return CustomButton(
+      buttonTitle: 'SignUp',
+      loading: _loading,
+      onTap: signUp,
+    );
+  }
+
+  _signInText() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Already have an account?'),
+        SizedBox(width: 5),
+        InkWell(
+          child: Text(
+            'Sign In',
+            style: TextStyle(
+              color: Color(0xff003893),
+            ),
+          ),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+  }
+
+  void signUp() async {
     if (_formKey.currentState.validate()) {
       setState(() {
         _loading = true;
