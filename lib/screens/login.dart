@@ -23,32 +23,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final auth = Authentication();
 
-  TextEditingController _emailC = TextEditingController();
-
-  TextEditingController _passC = TextEditingController();
   CustomTextField _emailTextInputField;
   CustomTextField _passwordTextInputField;
   //to show loading status while performing login
   bool _loading = false;
 
-  //for password visibility
-  bool hidden = true;
-
   @override
   void initState() {
     _emailTextInputField = new CustomTextField(
-      hintText: "Email Address",
+      hintText: 'Email',
       icon: Icon(Icons.mail),
       inputType: TextInputType.emailAddress,
       showText: true,
       validator: formValidator.emailValidator,
+      visibilityIcon: false,
     );
     _passwordTextInputField = new CustomTextField(
-      hintText: "Password",
+      hintText: 'Password',
       icon: Icon(Icons.lock),
       inputType: TextInputType.emailAddress,
       showText: false,
       validator: formValidator.passwordValidator,
+      visibilityIcon: true,
     );
     super.initState();
   }
@@ -112,36 +108,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _passwordTextField() {
-    return TextFormField(
-      controller: _passC,
-      obscureText: hidden,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        fillColor: Color(0xffEFEFEF),
-        filled: true,
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(40),
-        ),
-        prefixIcon: Icon(Icons.lock),
-        contentPadding: EdgeInsets.all(8),
-        suffixIcon: IconButton(
-          icon: Icon(
-            hidden ? Icons.visibility : Icons.visibility_off,
-            size: 20,
-          ),
-          onPressed: () {
-            setState(() {
-              hidden = !hidden;
-            });
-          },
-        ),
-      ),
-      validator: formValidator.passwordValidator,
-    );
-  }
-
   Widget _forgotPassword() {
     return Align(
       alignment: Alignment.centerRight,
@@ -151,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _signInBtn() {
     return CustomButton(
-      buttonTitle: 'SignIn',
+      buttonTitle: 'Sign In',
       onTap: signIn,
       loading: _loading,
     );

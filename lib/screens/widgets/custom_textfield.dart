@@ -8,6 +8,7 @@ class CustomTextField extends StatefulWidget {
     this.icon,
     this.validator,
     this.showText = false,
+    this.visibilityIcon = true,
   });
 
   final TextEditingController textEditingController;
@@ -16,6 +17,7 @@ class CustomTextField extends StatefulWidget {
   final Icon icon;
   final Function validator;
   final bool showText;
+  final bool visibilityIcon;
   final _CustomTextFieldState _customTextFieldState =
       new _CustomTextFieldState();
   String getText() => _customTextFieldState.getText();
@@ -69,17 +71,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
           borderRadius: BorderRadius.circular(40),
         ),
         prefixIcon: widget.icon,
-        suffixIcon: IconButton(
-          icon: Icon(
-            hidden ? Icons.visibility : Icons.visibility_off,
-            size: 20,
-          ),
-          onPressed: () {
-            setState(() {
-              hidden = !hidden;
-            });
-          },
-        ),
+        suffixIcon: !widget.visibilityIcon
+            ? null
+            : IconButton(
+                icon: Icon(
+                  hidden ? Icons.visibility_off : Icons.visibility,
+                  size: 20,
+                ),
+                onPressed: () {
+                  setState(() {
+                    hidden = !hidden;
+                  });
+                },
+              ),
         contentPadding: EdgeInsets.all(8),
       ),
       validator: widget.validator,

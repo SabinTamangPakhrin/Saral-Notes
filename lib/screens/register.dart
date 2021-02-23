@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saral_notes/screens/widgets/company_logo.dart';
 import 'package:saral_notes/screens/widgets/custom_button.dart';
 import 'package:saral_notes/screens/login.dart';
+import 'package:saral_notes/screens/widgets/custom_textfield.dart';
 import 'package:saral_notes/utils/authentication.dart';
 import 'package:saral_notes/utils/validator.dart';
 
@@ -19,15 +20,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _auth = Authentication();
 
-  TextEditingController _nameC = TextEditingController();
-
-  TextEditingController _emailC = TextEditingController();
-
-  TextEditingController _passC = TextEditingController();
-
-  TextEditingController _cpassC = TextEditingController();
-
   bool _loading = false;
+
+  //decalting custom textfields
+  CustomTextField _nameTextField;
+  CustomTextField _emailTextField;
+  CustomTextField _passwordTextField;
+  CustomTextField _confirmPasswordTextField;
+
+  @override
+  void initState() {
+
+    //initializing name, email, password and confirm password custom Textfield
+    _nameTextField = new CustomTextField(
+      hintText: 'Full Name',
+      icon: Icon(Icons.nature_people_rounded),
+      inputType: TextInputType.emailAddress,
+      showText: true,
+      validator: validator.fNameValidator,
+      visibilityIcon: false,
+    );
+    _emailTextField = new CustomTextField(
+      hintText: 'Email',
+      icon: Icon(Icons.mail),
+      inputType: TextInputType.emailAddress,
+      showText: true,
+      validator: validator.emailValidator,
+      visibilityIcon: false,
+    );
+    _passwordTextField = new CustomTextField(
+      hintText: 'Password',
+      icon: Icon(Icons.lock),
+      inputType: TextInputType.emailAddress,
+      showText: false,
+      validator: validator.passwordValidator,
+      visibilityIcon: false,
+    );
+    _confirmPasswordTextField = new CustomTextField(
+      hintText: 'Password',
+      icon: Icon(Icons.verified_user_sharp),
+      inputType: TextInputType.emailAddress,
+      showText: false,
+      validator: (value) {
+        if (value != _passwordTextField.getText()) {
+          return 'Password doesnot matched.';
+        }
+        return null;
+      },
+      visibilityIcon: false,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +111,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           key: _formKey,
           child: Column(
             children: [
-              _nameTextField(),
+              _nameTextField,
               SizedBox(height: 20),
-              _emailTextField(),
+              _emailTextField,
               SizedBox(height: 20),
-              _passwordTextField(),
+              _passwordTextField,
               SizedBox(height: 20),
-              _confirmPasswordTextField(),
+              _confirmPasswordTextField,
               SizedBox(height: 20),
               _signUpBtn(),
               SizedBox(height: 20),
@@ -86,89 +129,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _nameTextField() {
-    return TextFormField(
-      controller: _nameC,
-      decoration: InputDecoration(
-        hintText: 'Full Name',
-        filled: true,
-        fillColor: Color(0xffEFEFEF),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(40),
-        ),
-        prefixIcon: Icon(Icons.person),
-        contentPadding: EdgeInsets.all(8),
-      ),
-      validator: validator.fNameValidator,
-    );
-  }
-
-  Widget _emailTextField() {
-    return TextFormField(
-      controller: _emailC,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'Email',
-        filled: true,
-        fillColor: Color(0xffEFEFEF),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(40),
-        ),
-        prefixIcon: Icon(Icons.mail),
-        contentPadding: EdgeInsets.all(8),
-      ),
-      validator: validator.emailValidator,
-    );
-  }
-
-  Widget _passwordTextField() {
-    return TextFormField(
-      controller: _passC,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        filled: true,
-        fillColor: Color(0xffEFEFEF),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(40),
-        ),
-        prefixIcon: Icon(Icons.lock),
-        contentPadding: EdgeInsets.all(8),
-      ),
-      validator: validator.passwordValidator,
-    );
-  }
-
-  Widget _confirmPasswordTextField() {
-    return TextFormField(
-      controller: _cpassC,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Confirm Password',
-        filled: true,
-        fillColor: Color(0xffEFEFEF),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(40),
-        ),
-        prefixIcon: Icon(Icons.verified_user),
-        contentPadding: EdgeInsets.all(8),
-      ),
-      validator: (value) {
-        if (value != _passC.text) {
-          return 'Password doesnot matched.';
-        }
-        return null;
-      },
-    );
-  }
-
   Widget _signUpBtn() {
     return CustomButton(
-      buttonTitle: 'SignUp',
+      buttonTitle: 'Sign Up',
       loading: _loading,
       onTap: signUp,
     );
@@ -200,7 +163,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         _loading = true;
       });
-      bool success = await _auth.signUp(_emailC.text, _cpassC.text);
+      bool success = await _auth.signUp(
+          _emailTextField.getText(), _confirmPasswordTextField.getText());
       if (success) {
         setState(() {
           _loading = false;

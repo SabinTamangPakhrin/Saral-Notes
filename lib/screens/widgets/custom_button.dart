@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton({
-    this.buttonTitle,   
+    this.buttonTitle,
     this.onTap,
-    this.loading,  });
+    this.loading,
+  });
 
-  final String buttonTitle; 
+  final String buttonTitle;
   final Function onTap;
   final bool loading;
   @override
@@ -18,7 +19,7 @@ class CustomButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         color: Color(0xffDC143C),
         textColor: Colors.white,
-        child: loading ? Text('Loading...') : Text('Sign In'),
+        child: loading ? Text('Loading...') : Text(buttonTitle),
         onPressed: loading ? null : onTap,
       ),
     );

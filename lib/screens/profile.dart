@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:saral_notes/screens/login.dart';
 import 'package:saral_notes/screens/setting.dart';
+import 'package:saral_notes/screens/widgets/custom_button.dart';
 import 'package:saral_notes/utils/authentication.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final auth = Authentication();
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +52,7 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
+                _logoutBtn(),
               ],
             ),
           ),
@@ -61,5 +70,36 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _logoutBtn() {
+    return CustomButton(
+      buttonTitle: 'Logout',
+      loading: _loading,
+      onTap: logout,
+    );
+  }
+
+  logout() async {
+    setState(() {
+      _loading = true;
+    });
+    bool success = await auth.logout();
+    if (success) {
+      setState(() {
+        _loading = false;
+      });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+      );
+    } else {
+      setState(() {
+        _loading = false;
+      });
+      print('Logout Error');
+    }
   }
 }
