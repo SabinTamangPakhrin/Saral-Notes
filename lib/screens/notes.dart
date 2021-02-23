@@ -7,9 +7,10 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   @override
-  void initState() {    
+  void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -47,7 +48,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

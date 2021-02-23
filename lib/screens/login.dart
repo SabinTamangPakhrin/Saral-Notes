@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       showText: true,
       validator: formValidator.emailValidator,
       visibilityIcon: false,
+      textInputAction: TextInputAction.next,
     );
     _passwordTextInputField = new CustomTextField(
       hintText: 'Password',
@@ -45,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       showText: false,
       validator: formValidator.passwordValidator,
       visibilityIcon: true,
+      textInputAction: TextInputAction.done,
     );
     super.initState();
   }

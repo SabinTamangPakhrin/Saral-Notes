@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
   CustomTextField({
-    this.textEditingController,
     this.hintText,
     this.inputType,
     this.icon,
     this.validator,
     this.showText = false,
     this.visibilityIcon = true,
+    this.textInputAction,
   });
 
-  final TextEditingController textEditingController;
   final String hintText;
   final TextInputType inputType;
   final Icon icon;
   final Function validator;
   final bool showText;
   final bool visibilityIcon;
+  final TextInputAction textInputAction;
   final _CustomTextFieldState _customTextFieldState =
       new _CustomTextFieldState();
   String getText() => _customTextFieldState.getText();
@@ -61,7 +61,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: hidden,
       controller: textEditingController,
       keyboardType: widget.inputType,
-      textInputAction: TextInputAction.done,
+      textInputAction: widget.textInputAction,
       decoration: InputDecoration(
         hintText: widget.hintText,
         filled: true,

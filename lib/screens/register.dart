@@ -30,15 +30,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void initState() {
-
-    //initializing name, email, password and confirm password custom Textfield
+    //initializing name, email, password and confirm password Textfield
     _nameTextField = new CustomTextField(
       hintText: 'Full Name',
-      icon: Icon(Icons.nature_people_rounded),
+      icon: Icon(Icons.person),
       inputType: TextInputType.emailAddress,
       showText: true,
       validator: validator.fNameValidator,
       visibilityIcon: false,
+      textInputAction: TextInputAction.next,
     );
     _emailTextField = new CustomTextField(
       hintText: 'Email',
@@ -47,6 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       showText: true,
       validator: validator.emailValidator,
       visibilityIcon: false,
+      textInputAction: TextInputAction.next,
     );
     _passwordTextField = new CustomTextField(
       hintText: 'Password',
@@ -55,9 +56,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       showText: false,
       validator: validator.passwordValidator,
       visibilityIcon: false,
+      textInputAction: TextInputAction.next,
     );
     _confirmPasswordTextField = new CustomTextField(
-      hintText: 'Password',
+      hintText: 'Confirm Password',
       icon: Icon(Icons.verified_user_sharp),
       inputType: TextInputType.emailAddress,
       showText: false,
@@ -68,6 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return null;
       },
       visibilityIcon: false,
+      textInputAction: TextInputAction.done,
     );
     super.initState();
   }
